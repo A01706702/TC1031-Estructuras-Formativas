@@ -21,12 +21,8 @@ long Funciones::sumaIterativa (int n){
 }
 
 long Funciones::sumaRecursiva (int n){
-    if (n==1){
-        return 1;
-    }
     if (n<1){
         return 0;
-
     }
     else{
         return n+sumaRecursiva(n-1);
