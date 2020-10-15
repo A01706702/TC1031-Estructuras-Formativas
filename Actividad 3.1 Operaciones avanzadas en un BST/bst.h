@@ -140,8 +140,6 @@ Node<T>* Node<T>::succesor() {
 	return child;
 }
 
-
-
 template <class T>
 void Node<T>::inorder(std::stringstream &aux) const {
 	if (left != 0) {
@@ -208,7 +206,6 @@ void Node<T>::levelorder(std::stringstream &aux) const {
 	for(int i = 0; i < level; i++){
 			printlevel(aux, i);
 	}
-	
 }
 
 template <class T>
@@ -253,6 +250,8 @@ public:
 template <class T>
 BST<T>::BST() : root(0) {}
 
+template <class T>
+BST<T>::~BST() {}
 
 template <class T>
 bool BST<T>::empty() const {
@@ -269,7 +268,6 @@ void BST<T>::add(T val) {
 		root = new Node<T>(val);
 	}
 }
-
 
 template <class T>
 bool BST<T>::find(T val) const {
