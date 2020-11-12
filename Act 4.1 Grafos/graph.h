@@ -47,26 +47,25 @@ class Graph {
 void Graph::loadGraphMat(string filename, int vertices, int edges){
 	nu_edges = edges;
 	nu_vertices = vertices;
-	// Create adjecency matrix
 	for (int i=0; i<vertices; i++){
 		vector<int> row(vertices, 0);
 		adj_matrix.push_back(row);
 	}
-	// Read arch
-	ifstream arch;
-	arch.open(filename);
-	while(arch.good()){
-		string init_vertex; // (2, 3)
+	ifstream file;
+	file.open(filename);
+	while(file.good()){
+		string init_vertex;
 		string end_vertex;
-		getline(arch, init_vertex, ',');
-		getline(arch, end_vertex, '\n');
-		init_vertex = init_vertex.substr(1, init_vertex.length()-1);
-		end_vertex = end_vertex.substr(1, end_vertex.length()-2);
-		int init_node = stoi(init_vertex);
-		int end_node = stoi(end_vertex);
-		// Fill graph
-		adj_matrix[init_node][end_node] = 1;
-		adj_matrix[end_node][init_node] = 1;
+		getline(file, init_vertex, ',');
+		if (init_vertex != ""){
+			getline(file, end_vertex, '\n');
+			init_vertex = init_vertex.substr(1, init_vertex.length()-1);
+			end_vertex = end_vertex.substr(1, end_vertex.length()-2);
+			int init_node = stoi(init_vertex);
+			int end_node = stoi(end_vertex);
+			adj_matrix[init_node][end_node] = 1;
+			adj_matrix[end_node][init_node] = 1;
+		}
 	}
 }
 
@@ -74,26 +73,26 @@ void Graph::loadGraphMat(string filename, int vertices, int edges){
 void Graph::loadGraphList(string filename, int vertices, int edges){
 	nu_vertices = vertices;
 	nu_edges = edges;
-	// Create adjecency list
 	for (int i=0; i<vertices; i++){
 		vector<int> row;
 		adj_list.push_back(row);
 	}
-	// Read arch
-	ifstream arch;
-	arch.open(filename);
-	while(arch.good()){
+	// Read file
+	ifstream file;
+	file.open(filename);
+	while(file.good()){
 		string init_vertex;
 		string end_vertex;
-		getline(arch, init_vertex, ',');
-		getline(arch, end_vertex, '\n');
-		init_vertex = init_vertex.substr(1, init_vertex.length()-1);
-		end_vertex = end_vertex.substr(1, end_vertex.length()-2);
-		int init_node = stoi(init_vertex);
-		int end_node = stoi(end_vertex);
-		// Fill graph
-		adj_list[init_node].push_back(end_node);
-		adj_list[end_node].push_back(init_node);
+		getline(file, init_vertex, ',');
+		if (init_vertex != ""){
+			getline(file, end_vertex, '\n');
+			init_vertex = init_vertex.substr(1, init_vertex.length()-1);
+			end_vertex = end_vertex.substr(1, end_vertex.length()-2);
+			int init_node = stoi(init_vertex);
+			int end_node = stoi(end_vertex);
+			adj_list[init_node].push_back(end_node);
+			adj_list[end_node].push_back(init_node);
+		}
 	}
 }
 
@@ -128,14 +127,12 @@ string Graph::DFS(int init_vertex, int target_vertex){
 	for (int i=0; i<adj_list.size(); i++){
 		adj_list_copy.push_back(adj_list[i]);
 	}
-	// Init vars
 	vector<int> stack;
 	vector<int> visited;
 	bool found = false;
 	int current = init_vertex;
 
 	while (!found && !(visited.size() >= nu_vertices)){
-		// Check if the current is already in visited
 		bool already_visited = false;
 		for (int i=0; i<visited.size(); i++){
 			if(current == visited[i]) {
@@ -143,17 +140,11 @@ string Graph::DFS(int init_vertex, int target_vertex){
 				break;
 			}
 		}
-
-		// Add to visited
 		if (!already_visited) visited.push_back(current);
-
-		// Check if target found
 		if (current == target_vertex){
 			found = true;
 			break;
 		}
-
-		// Remove already visited values
 		for (int i=0; i<adj_list_copy[current].size(); i++){
 			for (int j=0; j<visited.size(); j++){
 				if(adj_list_copy[current][i] == visited[j])
@@ -162,21 +153,18 @@ string Graph::DFS(int init_vertex, int target_vertex){
 		}
 		if (adj_list_copy[current].size() > 0){
 			stack.push_back(current);
-			// Check for last child of current node
 			int temp_index = current;
 			current = adj_list_copy[current].back();
 			adj_list_copy[temp_index].pop_back();
 		}
 		else {
-			// If you hit wall
 			current = stack[stack.size()-1];
 			stack.pop_back();
 		}
 	}
-	// Add to the stack the found value to complete path
 	stack.push_back(current);
 
-	// Convert list to string
+	//List to string
 	string visited_str = print_vector(visited);
 	string path_str = print_vector(stack);
 	string result = "visited: " + visited_str + "path: " + path_str;
