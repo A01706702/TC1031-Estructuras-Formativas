@@ -7,20 +7,12 @@ Correcciones de actividades formativas
 
 ### Actividad 2.2 - Implementar un ADT de una estructura de datos lineal (doblemente ligada) ###
 
-- blablabla
-- blablabalbalbal
+- Se actualizó el README ya que la complejidad del add era incorrecta 
 
 ### Actividad 3.2 - Árbol Heap_Implementando una lista priorizada ###
 
-- jjd
-- ndjdj
+- Se actualizó el README ya que la complejidad del top era incorrecta 
 
 ### Actividad 3.3 - Árbol Desplegado_Implementando un Splay Tree ###
 
-- dddd
-- ddddd
-
-### Act 4.2 - Grafos: Algoritmos complementarios ###
-
-- Se realizó la actividad porque no se había hecho la entrega
-- Blablaballa
+- Se actualizó el README ya que la complejidad de las tres primeras funciones era incorrecta
