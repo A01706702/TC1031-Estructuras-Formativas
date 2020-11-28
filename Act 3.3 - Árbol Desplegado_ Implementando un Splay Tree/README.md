@@ -4,19 +4,19 @@ Implementar las Funciones avanzadas de un BST
 
 Análisis de complejidad temporal
 
-La función consta de comparaciones mediante if else y se manda a llamar recursivamente por lo que su complejidad es de O(n) para el peor de los casos
+La función consta de comparaciones mediante if else y se manda a llamar recursivamente por lo que su complejidad es de O(log n) para el peor de los casos
 
 #Remove
 
 Análisis de complejidad temporal
 
-La función quita el dato que se busca recorriendo los datos desde la posicion 0 y cambia el árbol para las rotaciones. por lo que la complejidad es de O(n) para el peor de los casos
+La función quita el dato que se busca recorriendo los datos desde la posicion 0 y cambia el árbol para las rotaciones. por lo que la complejidad es de O(log n) para el peor de los casos
 
 #Find
 
 Análisis de complejidad temporal
 
-La función devuelve un valor de true o false y recorre el árbol uno por uno, por lo que la complejidad es de O(n) para el peor de los casos
+La función devuelve un valor de true o false y recorre el árbol uno por uno, por lo que la complejidad es de O(log n) para el peor de los casos, ya que está utilizando un BST.
 
 #Inorder
 
