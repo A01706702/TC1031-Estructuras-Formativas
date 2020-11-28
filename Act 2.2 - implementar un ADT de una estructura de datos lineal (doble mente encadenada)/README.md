@@ -6,7 +6,7 @@ Implementar las operaciones CRUD para un ADT de estructura de datos doblemente l
 
 Análisis de complejidad temporal
 
-El algoritmo compara entradas con los head y tail de la lista, si la lista está vacía, el elemento a agregar será head y tail al mismo tiempo. Su complejidad es de O(n) porque no necesita recorrer la lista, solamente cambia el tail hacia newlist porque se agregará al final.
+El algoritmo compara entradas con los head y tail de la lista, si la lista está vacía, el elemento a agregar será head y tail al mismo tiempo. Su complejidad es de O(1) porque no necesita recorrer la lista, solamente cambia el tail hacia newlist porque se agregará al final.
 
 #find
 
