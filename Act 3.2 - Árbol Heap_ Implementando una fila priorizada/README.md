@@ -16,7 +16,7 @@ La función quita el dato de mayor prioridad recorriendo los datos desde la posi
 
 Análisis de complejidad temporal
 
-La función devuelve el primer valor de la lista (la posición 0) y no necesita recorrerla completamente, por lo que la complejidad es de O(n) para el peor de los casos
+La función devuelve el primer valor de la lista (la posición 0) y no necesita recorrerla completamente, por lo que la complejidad es de O(1) para el peor de los casos
 
 #Empty
 
