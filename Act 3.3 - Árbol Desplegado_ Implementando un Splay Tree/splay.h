@@ -17,8 +17,8 @@ private:
 	Node *left, *right, *parent;
 
 	Node<T>* succesor();
-	Node<T>* rot_right(Node<T>*);
-	Node<T>* rot_left(Node<T>*);
+	Node<T>* rot_right(Node<T>*); //zig
+	Node<T>* rot_left(Node<T>*); //zag
 
 public:
 	Node(T);
@@ -35,6 +35,7 @@ public:
 	friend class SplayTree<T>;
 };
 
+//////////////////constructores////////////////
 template <class T>
 Node<T>::Node(T val): value(val),left(0),right(0),parent(0) {}
 
@@ -42,6 +43,7 @@ template <class T>
 Node<T>::Node(T val,Node<T> *le,Node<T> *ri,Node<T> *p)
 : value(val),left(le),right(ri),parent(p){}
 
+/////////////////////////add////////////////////////
 template <class T>
 Node<T>* Node<T>::add(T val){
 	if(val<value){
@@ -65,6 +67,7 @@ Node<T>* Node<T>::add(T val){
 	}
 }
 
+////////////////////find/////////////////////////
 template<class T>
 Node<T>* Node<T>::find(T val){
 	if(val==value){
@@ -85,10 +88,10 @@ Node<T>* Node<T>::find(T val){
 	return 0;
 }
 
+///////////////succ///////////////
 template<class T>
 Node<T>* Node<T>::succesor(){
 	Node<T> *le,*ri;
-
 	le=left;
 	ri=right;
 
@@ -100,7 +103,6 @@ Node<T>* Node<T>::succesor(){
 			le->parent=0;
 		return le;
 	}
-
 	if(right->left==0){
 		right=right->right;
 		if(right)
@@ -126,6 +128,7 @@ Node<T>* Node<T>::succesor(){
 	return c;
 }
 
+//////////////////////remove/////////////////
 template<class T>
 Node<T>* Node<T>::remove(T val){
 	Node<T> *succ,*old;
@@ -150,7 +153,8 @@ Node<T>* Node<T>::remove(T val){
 				return left->remove(val);
 			}
 		}
-	}else if (val >value){
+	}
+	else if (val >value){
 		if(right!=0){
 			if(right->value==val){
 				old=right;
@@ -189,6 +193,7 @@ void Node<T>::removeChilds(){
 	}
 }
 
+/////////////////////zig//////////////////////
 template <class T>
 Node<T>* Node<T>::rot_right(Node<T>* x){
 	Node<T> *y=x->left;
@@ -196,10 +201,8 @@ Node<T>* Node<T>::rot_right(Node<T>* x){
 	if(y->right)
 		y->right->parent =x;
 	y->right=x;
-
 	y->parent=x->parent;
 	x->parent=y;
-
 	if(y->parent){
 		if(y->parent->left && y->parent->left->value==x->value)
 			y->parent->left=y;
@@ -209,6 +212,7 @@ Node<T>* Node<T>::rot_right(Node<T>* x){
 	return y;
 }
 
+//////////////////////////////////zag///////////////////////
 template<class T>
 Node<T>* Node<T>::rot_left(Node<T>*x){
 	Node<T> *y=x->right;
@@ -216,30 +220,32 @@ Node<T>* Node<T>::rot_left(Node<T>*x){
 	if(y->left)
 		y->left->parent=x;
 	y->left=x;
-
 	y->parent=x->parent;
 	x->parent=y;
-
 	if(y->parent){
-		if(y->parent->left && y->parent->left->value==x->value)
+		if(y->parent->left && y->parent->left->value==x->value){
 			y->parent->left=y;
-		else
+		}
+		else{
 			y->parent->right=y;
+		}
 	}
 	return y;
 }
 
+///////////////////////////splay/////////////////////
 template<class T>
 Node<T>* Node<T>::splay(Node<T>* root, Node<T>* x){
 	while(x->parent!=0){
-
 		if(x->parent->value==root->value){
 			if(x->parent->left && x->parent->left->value==x->value){
 				rot_right(x->parent);
-			}else{
+			}
+			else{
 				rot_left(x->parent);
 			}
-		}else{
+		}
+		else{
 			Node<T>*p = x->parent;
 			Node<T>*g = p->parent;
 			if(p->left && g->left &&
@@ -260,24 +266,10 @@ Node<T>* Node<T>::splay(Node<T>* root, Node<T>* x){
 			}
 		}
 	}
-
 	return x;
 }
 
-template <class T>
-void Node<T>::inorder(std::stringstream &aux) const {
-	if(left !=0){
-		left->inorder(aux);
-	}
-	if(aux.tellp()!=1){
-		aux<<" ";
-	}
-	aux<<value;
-	if(right!=0){
-		right->inorder(aux);
-	}
-}
-
+//////////////////////////imprimir arbol
 template <class T>
 void Node<T>::print_tree(std::stringstream &aux) const {
 	if (parent != 0){
@@ -299,6 +291,22 @@ void Node<T>::print_tree(std::stringstream &aux) const {
 	}
 }
 
+//////////////////////////inorder///////////////////
+template <class T>
+void Node<T>::inorder(std::stringstream &aux) const {
+	if(left !=0){
+		left->inorder(aux);
+	}
+	if(aux.tellp()!=1){
+		aux<<" ";
+	}
+	aux<<value;
+	if(right!=0){
+		right->inorder(aux);
+	}
+}
+
+/////////////////preorder////////////////////
 template <class T>
 void Node<T>::preorder(std::stringstream &aux) const {
 	aux << value;
@@ -312,6 +320,7 @@ void Node<T>::preorder(std::stringstream &aux) const {
 	}
 }
 
+/////////////////////clase splay///////////////////////
 template<class T>
 class SplayTree{
 private:
